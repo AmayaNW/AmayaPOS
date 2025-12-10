@@ -16,6 +16,10 @@ public class TestBase {
 		driverTB.get("https://amaya.lankapage.lk");
 	}
 	
+	public void executeTest() {
+		driverTB.clickLaunchDashboard();
+	}
+	
 	/*@AfterMethod
 	public void tearDown() {
 		if (driverTB != null) {
