@@ -9,7 +9,5 @@ public class DriverFactory {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		return driver;
-
 	}
-
 }

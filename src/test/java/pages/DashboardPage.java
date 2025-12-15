@@ -19,5 +19,13 @@ public class DashboardPage {
 	public void clickLaunchDashboard() {
 		launchDashboardLink.click();
 	}
+	
+	/**
+	 * Helper method for assertions in test cases.
+	 * @return true if the dashboard link is visible, false otherwise.
+	 */
+	public boolean isLaunchDashboardLinkDisplayed() {
+		return launchDashboardLink.isDisplayed();
+	}
 
 }

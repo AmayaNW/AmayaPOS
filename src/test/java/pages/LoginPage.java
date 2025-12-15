@@ -20,7 +20,6 @@ public class LoginPage {
 	public LoginPage(WebDriver driverTB) {
 		this.driverLP = driverTB;
 		PageFactory.initElements(driverLP, this);
-
 	}
 	
 	public void enterUsername(String username) {
@@ -40,5 +39,4 @@ public class LoginPage {
 		enterPassword(password);
 		clickLoginBtn();
 	}
-
 }
