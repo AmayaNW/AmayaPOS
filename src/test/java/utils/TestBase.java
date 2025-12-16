@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import pages.DashboardPage;
+import pages.LoginPage;
+
 public class TestBase {
 	protected WebDriver driverTB;
 	
@@ -24,6 +27,17 @@ public class TestBase {
 	/**
 	 * Tears down the WebDriver after each test method.
 	 */
+	
+	//Added dashboard load and login into a reusable helper
+	protected void openDashboardAndLogin() {
+	    DashboardPage dash = new DashboardPage(driverTB);
+	    dash.clickLaunchDashboard();
+
+	    LoginPage login = new LoginPage(driverTB);
+	    login.login("admin1", "admin123");
+	}
+	
+	
 	@AfterMethod
 	public void tearDown() {
 		if (driverTB != null) {

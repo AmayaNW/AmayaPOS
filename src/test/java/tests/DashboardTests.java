@@ -1,16 +1,22 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.TestBase;
+import pages.DashboardPage;
 
 public class DashboardTests extends TestBase {
-	
-	@Test(description = "Placeholder test to verify dashboard loading")
-	public void dashboardLoadTest() {
-		// Since we're logged out, this test might need a setup to login first,
-		// or it can test a public-facing part of the dashboard if available.
-		// For now, it's a placeholder.
-		System.out.println("Executing Dashboard Load Test.");
-		// Add your dashboard-specific test logic here.
-	}
+
+    @Test(description = "Verify that the dashboard loads when clicked.")
+    public void dashboardLoadTest() {
+        // Used helper instead of repeating click + login
+        openDashboardAndLogin();
+
+        // Then verified dashboard element
+        DashboardPage dash = new DashboardPage(driverTB);
+        Assert.assertTrue(
+            dash.isLaunchDashboardLinkDisplayed(),
+            "Dashboard did not load after login"
+        );
+    }
 }
