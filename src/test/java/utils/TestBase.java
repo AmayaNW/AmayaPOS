@@ -1,6 +1,9 @@
 package utils;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -9,6 +12,7 @@ import pages.LoginPage;
 
 public class TestBase {
 	protected WebDriver driverTB;
+	protected WebDriverWait waitTB = new WebDriverWait(driverTB, Duration.ofSeconds(8));
 	
 	/**
 	 * Sets up the WebDriver before each test method.

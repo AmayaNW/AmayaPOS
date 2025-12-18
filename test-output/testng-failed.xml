@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [AmayaAutomationSuite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Dashboard Test Execution(failed)">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
       <class name="tests.DashboardTests">
         <methods>
@@ -11,16 +11,5 @@
         </methods>
       </class> <!-- tests.DashboardTests -->
     </classes>
-  </test> <!-- Dashboard Test Execution(failed) -->
-  <test thread-count="5" name="Login Test Execution(failed)">
-    <classes>
-      <class name="tests.LoginTests">
-        <methods>
-          <include name="loginAfterLaunchDashboard"/>
-          <include name="tearDown"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- tests.LoginTests -->
-    </classes>
-  </test> <!-- Login Test Execution(failed) -->
-</suite> <!-- Failed suite [AmayaAutomationSuite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
