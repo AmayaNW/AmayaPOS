@@ -1,6 +1,9 @@
 package utils;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,7 +15,9 @@ import pages.LoginPage;
 
 public class TestBase {
 	protected WebDriver driverTB;
-	protected WebDriverWait waitTB = new WebDriverWait(driverTB, Duration.ofSeconds(8));
+	//protected WebDriverWait waitTB = new WebDriverWait(driverTB, Duration.ofSeconds(8)); Wrong: Gives null pointer exception
+	protected WebDriverWait waitTB;
+	
 	
 	/**
 	 * Sets up the WebDriver before each test method.
@@ -21,6 +26,7 @@ public class TestBase {
 	public void setUp() {
 		// Use the factory to create a driver (e.g., ChromeDriver)
 		driverTB = DriverFactory.createDriver();
+		waitTB = new WebDriverWait(driverTB, Duration.ofSeconds(5));
 		// Navigate to the application URL
 		driverTB.get("https://amaya.lankapage.lk");
 	}
@@ -39,6 +45,14 @@ public class TestBase {
 
 	    LoginPage login = new LoginPage(driverTB);
 	    login.login("admin1", "admin123");
+	}
+	
+	// Get current date and time in EEEE, MMMM dd, yyyy, hh.mm a format.
+	// helper
+	public String getCurrentDateTime() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formattedDT = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy, hh.mm a", Locale.ENGLISH);
+		return now.format(formattedDT);
 	}
 	
 	

@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 	WebDriver driverLP;
-	
-	WebDriverWait waitLP = new WebDriverWait(driverLP, Duration.ofSeconds(10));
+	private WebDriverWait waitLP;
+	// WebDriverWait waitLP = new WebDriverWait(driverLP, Duration.ofSeconds(10)); Wrong: gives null pointer exception
 	
 	@FindBy(id = "username")
 	WebElement txtUsername;
@@ -23,8 +23,10 @@ public class LoginPage {
 	@FindBy(id = "loginButton")
 	WebElement btnLogin;
 
+
 	public LoginPage(WebDriver driverTB) {
 		this.driverLP = driverTB;
+		this.waitLP = new WebDriverWait(driverLP, Duration.ofSeconds(5));
 		PageFactory.initElements(driverLP, this);
 	}
 	

@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [AmayaAutomationSuite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Dashboard Test Execution(failed)">
-    <classes>
-      <class name="tests.DashboardTests">
-        <methods>
-          <include name="dashboardLoadTest"/>
-          <include name="tearDown"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- tests.DashboardTests -->
-    </classes>
-  </test> <!-- Dashboard Test Execution(failed) -->
   <test thread-count="5" name="Login Test Execution(failed)">
     <classes>
       <class name="tests.LoginTests">
