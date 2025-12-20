@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-AmayaAutomationSuite" class="navigator-link">
-              <span class="suite-name border-failed">AmayaAutomationSuite</span>
+              <span class="suite-name border-passed">AmayaAutomationSuite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,21 +92,26 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method, 1 failed,   </span>
+                    <span class="method-stats">2 methods,   2 passed</span>
                   </li>
                   <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-AmayaAutomationSuite" class="hide-methods failed suite-AmayaAutomationSuite"> (hide)</a> <!-- hide-methods failed suite-AmayaAutomationSuite -->
-                      <a href="#" panel-name="suite-AmayaAutomationSuite" class="show-methods failed suite-AmayaAutomationSuite"> (show)</a> <!-- show-methods failed suite-AmayaAutomationSuite -->
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-AmayaAutomationSuite" class="hide-methods passed suite-AmayaAutomationSuite"> (hide)</a> <!-- hide-methods passed suite-AmayaAutomationSuite -->
+                      <a href="#" panel-name="suite-AmayaAutomationSuite" class="show-methods passed suite-AmayaAutomationSuite"> (show)</a> <!-- show-methods passed suite-AmayaAutomationSuite -->
                     </span>
-                    <div class="method-list-content failed suite-AmayaAutomationSuite">
+                    <div class="method-list-content passed suite-AmayaAutomationSuite">
                       <span>
-                        <img src="failed.png" width="3%"/>
+                        <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-AmayaAutomationSuite" title="tests.LoginTests" class="method navigator-link" hash-for-method="loginAfterLaunchDashboard">loginAfterLaunchDashboard</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-AmayaAutomationSuite -->
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-AmayaAutomationSuite" title="tests.ProductsTests" class="method navigator-link" hash-for-method="testNavigateToProducts">testNavigateToProducts</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-AmayaAutomationSuite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,9 +123,26 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-AmayaAutomationSuite" class="panel AmayaAutomationSuite">
-          <div class="suite-AmayaAutomationSuite-class-failed">
+          <div class="suite-AmayaAutomationSuite-class-passed">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
+              <img src="passed.png"/>
+              <span class="class-name">tests.ProductsTests</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testNavigateToProducts">
+                  </a> <!-- testNavigateToProducts -->
+                  <span class="method-name">testNavigateToProducts</span>
+                  <em>
+(Verify navigation to Products page from dashboard.)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-AmayaAutomationSuite-class-passed -->
+          <div class="suite-AmayaAutomationSuite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
               <span class="class-name">tests.LoginTests</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -129,50 +151,12 @@
                   <a name="loginAfterLaunchDashboard">
                   </a> <!-- loginAfterLaunchDashboard -->
                   <span class="method-name">loginAfterLaunchDashboard</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: Proxy element for: DefaultElementLocator &apos;By.xpath: //a[normalize-space()=&apos;LAUNCH DASHBOARD&apos;]&apos; (tried for 5 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-	at pages.DashboardPage.isLaunchDashboardLinkDisplayed(DashboardPage.java:30)
-	at tests.LoginTests.loginAfterLaunchDashboard(LoginTests.java:16)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//a[normalize-space()=&apos;LAUNCH DASHBOARD&apos;]&quot;}
-  (Session info: chrome=143.0.7499.147)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
-Build info: version: &apos;4.38.0&apos;, revision: &apos;6b412e825c*&apos;
-System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;15.7.3&apos;, java.version: &apos;23.0.2&apos;
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [9d2cfb11a1cfbd215cd5a5c847f65bf8, findElement {using=xpath, value=//a[normalize-space()=&apos;LAUNCH DASHBOARD&apos;]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 143.0.7499.147, chrome: {chromedriverVersion: 143.0.7499.169 (164b20aab62..., userDataDir: /var/folders/v_/z25jytpd7bs...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49518}, goog:processID: 42482, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:49518/devtoo..., se:cdpVersion: 143.0.7499.147, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 9d2cfb11a1cfbd215cd5a5c847f65bf8
-	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:380)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
-	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-	at jdk.proxy2/jdk.proxy2.$Proxy12.isDisplayed(Unknown Source)
-	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:308)
-	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:294)
-	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:291)
-	at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:662)
-	at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:658)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-	... 28 more
-... Removed 28 stack frames
-</div> <!-- stack-trace -->
                   <em>
 (Verify successful login after clicking launch dashboard)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-AmayaAutomationSuite-class-failed -->
+          </div> <!-- suite-AmayaAutomationSuite-class-passed -->
         </div> <!-- panel AmayaAutomationSuite -->
         <div panel-name="test-xml-AmayaAutomationSuite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -186,6 +170,7 @@ Session ID: 9d2cfb11a1cfbd215cd5a5c847f65bf8
   &lt;test thread-count=&quot;5&quot; name=&quot;Login Test Execution&quot;&gt;
     &lt;classes&gt;
       &lt;class name=&quot;tests.LoginTests&quot;/&gt;
+      &lt;class name=&quot;tests.ProductsTests&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Login Test Execution --&gt;
 &lt;/suite&gt; &lt;!-- AmayaAutomationSuite --&gt;
@@ -199,7 +184,7 @@ Session ID: 9d2cfb11a1cfbd215cd5a5c847f65bf8
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Login Test Execution (1 class)</span>
+                <span class="test-name">Login Test Execution (2 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -225,11 +210,15 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(2);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'loginAfterLaunchDashboard')
-data.setCell(0, 2, 'tests.LoginTests')
-data.setCell(0, 3, 7505);
+data.setCell(0, 1, 'testNavigateToProducts')
+data.setCell(0, 2, 'tests.ProductsTests')
+data.setCell(0, 3, 4307);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'loginAfterLaunchDashboard')
+data.setCell(1, 2, 'tests.LoginTests')
+data.setCell(1, 3, 3442);
 window.suiteTableData['AmayaAutomationSuite']= { tableData: data, tableDiv: 'times-div-AmayaAutomationSuite'}
 return data;
 }
@@ -266,14 +255,27 @@ return data;
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">loginAfterLaunchDashboard</span>
-                <span class="method-start">3634 ms</span>
+                <span class="method-start">6934 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">11145 ms</span>
+                <span class="method-start">10377 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.ProductsTests</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">10470 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">testNavigateToProducts</span>
+                <span class="method-start">14238 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">18546 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -12,6 +12,7 @@
    <test name="Login Test Execution">
         <classes>
             <class name="tests.LoginTests"/>
+            <class name="tests.ProductsTests"/>
         </classes>
     </test>
 

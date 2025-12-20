@@ -1,97 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-12-20T14:20:48 IST" name="AmayaAutomationSuite" finished-at="2025-12-20T14:20:59 IST" duration-ms="11254">
+  <suite started-at="2025-12-20T22:11:05 IST" name="AmayaAutomationSuite" finished-at="2025-12-20T22:11:23 IST" duration-ms="18647">
     <groups>
     </groups>
-    <test started-at="2025-12-20T14:20:48 IST" name="Login Test Execution" finished-at="2025-12-20T14:20:59 IST" duration-ms="11254">
+    <test started-at="2025-12-20T22:11:05 IST" name="Login Test Execution" finished-at="2025-12-20T22:11:23 IST" duration-ms="18647">
       <class name="tests.LoginTests">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.LoginTests@36ebc363]" started-at="2025-12-20T14:20:48 IST" name="setUp" finished-at="2025-12-20T14:20:52 IST" duration-ms="3633" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.LoginTests@639c2c1d]" started-at="2025-12-20T22:11:05 IST" name="setUp" finished-at="2025-12-20T22:11:12 IST" duration-ms="6933" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="loginAfterLaunchDashboard()[pri:0, instance:tests.LoginTests@36ebc363]" started-at="2025-12-20T14:20:52 IST" name="loginAfterLaunchDashboard" description="Verify successful login after clicking launch dashboard" finished-at="2025-12-20T14:20:59 IST" duration-ms="7505" status="FAIL">
-          <exception class="org.openqa.selenium.TimeoutException">
-            <message>
-              <![CDATA[Expected condition failed: waiting for element to be clickable: Proxy element for: DefaultElementLocator 'By.xpath: //a[normalize-space()='LAUNCH DASHBOARD']' (tried for 5 second(s) with 500 milliseconds interval)]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: Proxy element for: DefaultElementLocator 'By.xpath: //a[normalize-space()='LAUNCH DASHBOARD']' (tried for 5 second(s) with 500 milliseconds interval)
-at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
-at pages.DashboardPage.isLaunchDashboardLinkDisplayed(DashboardPage.java:30)
-at tests.LoginTests.loginAfterLaunchDashboard(LoginTests.java:16)
-at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
-at org.testng.TestRunner.privateRun(TestRunner.java:741)
-at org.testng.TestRunner.run(TestRunner.java:616)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-at org.testng.TestNG.runSuites(TestNG.java:1112)
-at org.testng.TestNG.run(TestNG.java:1079)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:293)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:91)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//a[normalize-space()='LAUNCH DASHBOARD']"}
-  (Session info: chrome=143.0.7499.147)
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
-Build info: version: '4.38.0', revision: '6b412e825c*'
-System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '15.7.3', java.version: '23.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [9d2cfb11a1cfbd215cd5a5c847f65bf8, findElement {using=xpath, value=//a[normalize-space()='LAUNCH DASHBOARD']}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 143.0.7499.147, chrome: {chromedriverVersion: 143.0.7499.169 (164b20aab62..., userDataDir: /var/folders/v_/z25jytpd7bs...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49518}, goog:processID: 42482, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:49518/devtoo..., se:cdpVersion: 143.0.7499.147, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: 9d2cfb11a1cfbd215cd5a5c847f65bf8
-at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:501)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:485)
-at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:167)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:138)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:215)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:557)
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:165)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:380)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:374)
-at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
-at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-at jdk.proxy2/jdk.proxy2.$Proxy12.isDisplayed(Unknown Source)
-at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:308)
-at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:294)
-at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:291)
-at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:662)
-at org.openqa.selenium.support.ui.ExpectedConditions$23.apply(ExpectedConditions.java:658)
-at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
-... 28 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
+        <test-method signature="loginAfterLaunchDashboard()[pri:0, instance:tests.LoginTests@639c2c1d]" started-at="2025-12-20T22:11:12 IST" name="loginAfterLaunchDashboard" description="Verify successful login after clicking launch dashboard" finished-at="2025-12-20T22:11:15 IST" duration-ms="3442" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAfterLaunchDashboard -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.LoginTests@36ebc363]" started-at="2025-12-20T14:20:59 IST" name="tearDown" finished-at="2025-12-20T14:20:59 IST" duration-ms="97" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.LoginTests@639c2c1d]" started-at="2025-12-20T22:11:15 IST" name="tearDown" finished-at="2025-12-20T22:11:15 IST" duration-ms="92" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- tests.LoginTests -->
+      <class name="tests.ProductsTests">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.ProductsTests@682b2fa]" started-at="2025-12-20T22:11:15 IST" name="setUp" finished-at="2025-12-20T22:11:19 IST" duration-ms="3767" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testNavigateToProducts()[pri:0, instance:tests.ProductsTests@682b2fa]" started-at="2025-12-20T22:11:19 IST" name="testNavigateToProducts" description="Verify navigation to Products page from dashboard." finished-at="2025-12-20T22:11:23 IST" duration-ms="4307" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNavigateToProducts -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.ProductsTests@682b2fa]" started-at="2025-12-20T22:11:23 IST" name="tearDown" finished-at="2025-12-20T22:11:23 IST" duration-ms="89" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.ProductsTests -->
     </test> <!-- Login Test Execution -->
   </suite> <!-- AmayaAutomationSuite -->
 </testng-results>

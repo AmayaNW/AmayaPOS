@@ -35,5 +35,14 @@ public class DashboardPage {
 		wait.until(ExpectedConditions.elementToBeClickable(launchDashboardLink));
 		launchDashboardLink.click();
 	}
+	
+	// to click "Products" nav-link
+	@FindBy(xpath = "//a[@href='products.php'][@class='nav-link text-white ']")
+	private WebElement productsLink;
+	
+	public void clickProducts() {
+		wait.until(ExpectedConditions.elementToBeClickable(productsLink));
+		productsLink.click();
+	}
 
 }
