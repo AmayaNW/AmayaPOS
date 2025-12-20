@@ -1,0 +1,11 @@
+# Ignore TestNG execution reports
+test-output/
+target/
+build/
+temp-testng.xml
+
+# Ignore IDE specific files
+.settings/
+.project
+.classpath
+bin/
