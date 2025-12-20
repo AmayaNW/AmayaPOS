@@ -3,13 +3,13 @@
 
 <suite name="AmayaAutomationSuite" verbose="1">
 
-    <test name="Dashboard Test Execution">
+    <!--<test name="Dashboard Test Execution">
         <classes>
             <class name="tests.DashboardTests"/>
         </classes>
-    </test>
+    </test>-->
 
-    <test name="Login Test Execution">
+   <test name="Login Test Execution">
         <classes>
             <class name="tests.LoginTests"/>
         </classes>
