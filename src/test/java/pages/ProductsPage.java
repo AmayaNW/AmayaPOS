@@ -3,6 +3,7 @@ package pages;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ProductsPage {
 	WebDriver driverPP;
 	WebDriverWait waitPP;
+	JavascriptExecutor jse;
 	
 	@FindBy(xpath = "//h1[normalize-space()='Item Management']")
 	WebElement itemMgtHead;
@@ -58,7 +60,7 @@ public class ProductsPage {
 	WebElement categoryDesc;
 	
 	@FindBy(xpath = "//button[normalize-space()='Add Category']")
-	WebElement addCatBtn;
+	WebElement saveCatBtn;
 	
 	@FindBy(xpath = "//button[normalize-space()='Add Category']")
 	WebElement catAddCancelBtn;
@@ -73,7 +75,7 @@ public class ProductsPage {
 	WebElement addNewSupplierPopup;
 	
 	@FindBy(xpath = "//h5[@id='supplierModalLabel']")
-	WebElement sunPopupLabel;
+	WebElement supPopupLabel;
 	
 	@FindBy(xpath = "//input[@id='supplier_name']")
 	WebElement supNameInput;
@@ -91,7 +93,7 @@ public class ProductsPage {
 	WebElement supAddInput;
 	
 	@FindBy(xpath = "//button[normalize-space()='Add Supplier']")
-	WebElement addSupBtn;
+	WebElement saveSupBtn;
 	
 	@FindBy(xpath = "//div[@id='supplierModal']//button[@type='button'][normalize-space()='Cancel']")
 	WebElement cancelSupBtn;
@@ -108,7 +110,7 @@ public class ProductsPage {
 	@FindBy(xpath = "//input[@id='tax_rate']")
 	WebElement taxRateInput;
 	
-	@FindBy(xpath = "//input[@id='tax_rate']")
+	@FindBy(xpath = "//input[@id='min_order_qty']")
 	WebElement minOrderQuantityInput;
 	
 	@FindBy(xpath = "//input[@id='expire_date']")
@@ -120,11 +122,11 @@ public class ProductsPage {
 	@FindBy(xpath = "//form[@id='productForm']//button[@type='button'][normalize-space()='Cancel']")
 	WebElement cancelProductBtn;
 	
-	@FindBy(xpath = "//div[@class='image-upload-container']")
+	@FindBy(xpath = "//input[@id='product_image']")
 	WebElement imageUpload;
 	
-	@FindBy(xpath = "//table[@class='table table-bordered table-striped table-hover']")
-	WebElement productTable;
+	@FindBy(xpath = "//table[@class='table table-bordered table-striped table-hover']//tbody/tr")
+	//WebElement productTable;
 	List<WebElement> pTableRows;
 	
 	WebElement duplicateErrorMessage;
@@ -134,7 +136,31 @@ public class ProductsPage {
 	public ProductsPage(WebDriver driverTB) {
 		this.driverPP = driverTB;
 		this.waitPP = new WebDriverWait(driverPP, Duration.ofSeconds(30));
+		this.jse = (JavascriptExecutor) driverPP;
 		PageFactory.initElements(driverPP, this);
+	}
+	
+	// Reusable JS helper
+	private void jsSetValue(WebElement element, String value) {
+		jse.executeScript(
+				"arguments[0].value = arguments[1];" +
+				"arguments[0].dispatchEvent(new Event('input'));" +
+				"arguments[0].dispatchEvent(new Event('change'));",
+				element,
+				value
+		);
+	}
+	
+	private void jsClick(WebElement element) {
+		jse.executeScript("arguments[0].click();", element);
+	}
+	
+	public void setItemName(String name) {
+		jsSetValue(itemNameInput, name);
+	}
+	
+	public String getItemName() {
+		return itemNameInput.getAttribute("value");
 	}
 	
 	public boolean isItemMgtHeadDisplayed() {
@@ -158,59 +184,89 @@ public class ProductsPage {
 	
 	public void clickAddItemsBtn() {
 		if(addItemsBtnClickability()) {
-			addItemsBtn.click();
+			jse.executeScript("arguments[0].click()", addItemsBtn);
 		}else {
 			System.out.println("Add Items button is not clickable.");
 		}
 	}
 	
-	public void selectCategory(String expCat) {
-		waitPP.until(ExpectedConditions.elementToBeClickable(categoryDropDown)).click();
-		Select categories = new Select(categoryDropDown);
-		categories.selectByVisibleText(expCat);
-	//	List<WebElement> categoryList = categories.getOptions();
-	/*	waitPP.until(ExpectedConditions.visibilityOfAllElements(categoryList));
+	
+	// Add new category TO the list
+	public void addNewCategory(String name, String desc) {
+		waitPP.until(ExpectedConditions.elementToBeClickable(addCategoryBtn));
+		jsClick(addCategoryBtn);
 		
-		boolean catFound = false;
-		int categoryCount=0;
+		waitPP.until(ExpectedConditions.visibilityOf(addNewCategoryForm));
+		jsSetValue(categoryName, name);
+		jsSetValue(categoryDesc, desc);
 		
-		for(WebElement category: categoryList) {
-			String actCat = category.getText();
-			categoryCount++;
-			
-			if(actCat.equalsIgnoreCase(expCat)) {
-				category.click();
-				catFound = true;
-				break;
-			}
-		} */
+		jsClick(saveCatBtn);
+		waitPP.until(ExpectedConditions.invisibilityOf(addNewCategoryForm));
 	}
 	
+	
+	// Select category FROM the list
+	public void selectCategory(String expCat) {
+		waitPP.until(ExpectedConditions.elementToBeClickable(categoryDropDown)).click();
+	//	Select categories = new Select(categoryDropDown);
+	//	categories.selectByVisibleText(expCat);
+		jse.executeScript(
+		        "var select = arguments[0];" +
+		        "for (var i = 0; i < select.options.length; i++) {" +
+		        "  if (select.options[i].text.trim() === arguments[1]) {" +
+		        "    select.selectedIndex = i;" +
+		        "    select.dispatchEvent(new Event('change'));" +
+		        "    break;" +
+		        "  }" +
+		        "}",
+		        categoryDropDown,
+		        expCat
+		    );
+	}
+	
+	
+	// Add new supplier.
+	public void addNewSupplier(String supName, String supCompany, String supPhone, String supEmail, String supAddress) {
+		waitPP.until(ExpectedConditions.elementToBeClickable(addNewSupplierBtn));
+		jsClick(addNewSupplierBtn);
+		waitPP.until(ExpectedConditions.visibilityOf(addNewSupplierPopup));
+		jsSetValue(supNameInput, supName);
+		jsSetValue(compNameInput, supCompany);
+		jsSetValue(contNumberInput, supPhone);
+		jsSetValue(supEmailInput, supEmail);
+		jsSetValue(supAddInput, supAddress);
+		jsClick(saveSupBtn);
+		waitPP.until(ExpectedConditions.invisibilityOf(addNewSupplierPopup));
+	}
+	
+	
+	
+	// Select supplier from the list
 	public void selectSupplier(String expSup) {
 		waitPP.until(ExpectedConditions.elementToBeClickable(supplierDropDown));
-		Select suppliers = new Select(supplierDropDown);
-		suppliers.selectByVisibleText(expSup);
-	//	List<WebElement> supplierList = suppliers.getOptions();
-	/*	waitPP.until(ExpectedConditions.visibilityOfAllElements(supplierList));
-		
-		boolean supFound = false;
-		int supplierCount = 0;
-		
-		for(WebElement supplier: supplierList) {
-			String actSup = supplier.getText();
-			supplierCount++;
-			
-			if(actSup.equalsIgnoreCase(expSup)) {
-				supplier.click();
-				supFound = true;
-				break;
-			}
-		} */
+	//	Select suppliers = new Select(supplierDropDown);
+	//	suppliers.selectByVisibleText(expSup);
+		jse.executeScript(
+		        "var select = arguments[0];" +
+		        "for (var i = 0; i < select.options.length; i++) {" +
+		        "  if (select.options[i].text.trim() === arguments[1]) {" +
+		        "    select.selectedIndex = i;" +
+		        "    select.dispatchEvent(new Event('change'));" +
+		        "    break;" +
+		        "  }" +
+		        "}",
+		        supplierDropDown,
+		        expSup
+		    );	
 	}
 	
 	public void uploadImage(String imgPath) {
 		try {
-			imageUpload.sendKeys(imgPath);
+			((JavascriptExecutor) driverPP)
+	        .executeScript("arguments[0].style.display='block';", imageUpload);
+
+	    imageUpload.sendKeys(imgPath);
+	    
 		}catch(Exception e) {
 			System.out.println("Optional image upload is skipped or failed. Verify path: " + imgPath);
 		}
@@ -218,48 +274,45 @@ public class ProductsPage {
 	
 	public boolean fillAddItemsForm(String itemName, String custBarcode, String cat, String sup, int costPrice, 
 			int sellPrice, int stock, int tax, int minOrQty, String expDate, String imgPath) {
-		if(addItemsBtnClickability()) {
-			clickAddItemsBtn();
-			
-			waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
-			
-			boolean labelDisplay = addItemsLabel.isDisplayed();
-			
-			if(labelDisplay) {
-				System.out.println("Successfully opened the Add Items form.");
-				
-				itemNameInput.sendKeys(itemName);				
-				customBarcodeInput.sendKeys(custBarcode);
-			//	System.out.println("Category options count: " + categoryList.size());				
-				selectCategory(cat);
-				selectSupplier(sup);
-				costPriceInput.sendKeys(String.valueOf(costPrice));
-				sellingPriceInput.sendKeys(String.valueOf(sellPrice));
-				stockQuantityInput.sendKeys(String.valueOf(stock));
-				taxRateInput.sendKeys(String.valueOf(tax));
-				minOrderQuantityInput.sendKeys(String.valueOf(minOrQty));
-				expiryDateInput.sendKeys(expDate);
-		   //   upload image if the path is provided.-optional
-				if(imgPath != null && imgPath.trim().isEmpty()) {
-					uploadImage(imgPath);
-				}
-				
-				saveProductBtn.click();
-				
-				try {
-                    waitPP.until(ExpectedConditions.invisibilityOf(addItemsFormPopup));
-                    System.out.println("Item adding successful.");
-                    return true;
-                } catch (Exception e) {
-                    System.out.println("Form did not close. Check for validation errors on the page.");
-                    return false;
-                }
-				
-			}else {
-				System.out.println("The form failed to open.");
-			}
-		}
-		return false;
+		try {
+	        clickAddItemsBtn();
+
+	        waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
+	        waitPP.until(ExpectedConditions.visibilityOf(addItemsLabel));
+
+	        // Text inputs
+	        jsSetValue(itemNameInput, itemName);
+	        jsSetValue(customBarcodeInput, custBarcode);
+
+	        // Dropdowns
+	        selectCategory(cat);
+	        selectSupplier(sup);
+
+	        // Numbers
+	        jsSetValue(costPriceInput, String.valueOf(costPrice));
+	        jsSetValue(sellingPriceInput, String.valueOf(sellPrice));
+	        jsSetValue(stockQuantityInput, String.valueOf(stock));
+	        jsSetValue(taxRateInput, String.valueOf(tax));
+	        jsSetValue(minOrderQuantityInput, String.valueOf(minOrQty));
+
+	        // Date
+	        jsSetValue(expiryDateInput, expDate);
+
+	        // Image upload
+	        if (imgPath != null && !imgPath.trim().isEmpty()) {
+	            imageUpload.sendKeys(imgPath);
+	        }
+
+	        // Save using JS
+	        jse.executeScript("arguments[0].click()", saveProductBtn);
+
+	        waitPP.until(ExpectedConditions.invisibilityOf(addItemsFormPopup));
+	        return true;
+
+	    } catch (Exception e) {
+	        System.out.println("Failed to add item: " + e.getMessage());
+	        return false;
+	    }
 	}
 	
 	public boolean isItemPresentInTable(String name, String barcode) {
