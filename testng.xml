@@ -6,10 +6,10 @@
     <!-- Global timeout for all tests to prevent infinite hangs -->
     <test name="Full Regression Test" preserve-order="true">
         <classes>
-            <!-- Login is usually the first sanity check -->
+            <!-- Login tests -->
             <class name="tests.LoginTests"/>
             
-            <!-- Dashboard checks -->
+            <!-- Dashboard tests -->
             <class name="tests.DashboardTests"/>
             
             <!-- Products Page functionality tests -->
@@ -17,6 +17,9 @@
             
             <!-- New category and suppliers adding tests -->
             <class name="tests.AddItemInsidePopupsTests"/>
+            
+            <!-- Edit Item tests-->
+            <class name="tests.EditItemsTest" />
         </classes>
     </test>
 

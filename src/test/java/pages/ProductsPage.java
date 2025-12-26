@@ -3,6 +3,7 @@ package pages;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,16 +25,16 @@ public class ProductsPage {
 	WebElement addItemsBtn;
 	
 	@FindBy(xpath = "//form[@id='productForm']")
-	WebElement addItemsFormPopup;
+	public WebElement addItemsFormPopup;
 	
 	@FindBy(xpath = "//h5[@id='productModalLabel']")
 	WebElement addItemsLabel;
 	
 	@FindBy(xpath = "//input[@id='name']")
-	WebElement itemNameInput;
+	public WebElement itemNameInput;
 	
 	@FindBy(xpath = "//input[@id='barcode']")
-	WebElement customBarcodeInput;
+	public WebElement customBarcodeInput;
 	
 	@FindBy(xpath = "//button[normalize-space()='Generate']")
 	WebElement autoBarcodeGenerateBtn;
@@ -102,7 +103,7 @@ public class ProductsPage {
 	WebElement costPriceInput;
 	
 	@FindBy(xpath = "//input[@id='price']")
-	WebElement sellingPriceInput;
+	public WebElement sellingPriceInput;
 	
 	@FindBy(xpath = "//input[@id='quantity']")
 	WebElement stockQuantityInput;
@@ -117,7 +118,7 @@ public class ProductsPage {
 	WebElement expiryDateInput;
 	
 	@FindBy(xpath = "//button[normalize-space()='Save Product']")
-	WebElement saveProductBtn;
+	public WebElement saveProductBtn;
 	
 	@FindBy(xpath = "//form[@id='productForm']//button[@type='button'][normalize-space()='Cancel']")
 	WebElement cancelProductBtn;
@@ -131,6 +132,10 @@ public class ProductsPage {
 	
 	WebElement duplicateErrorMessage;
 	
+	@FindBy(xpath = "//button[normalize-space()='Edit']")
+	WebElement editBtn;
+	
+	
 	
 	 
 	public ProductsPage(WebDriver driverTB) {
@@ -141,7 +146,7 @@ public class ProductsPage {
 	}
 	
 	// Reusable JS helper
-	private void jsSetValue(WebElement element, String value) {
+	public void jsSetValue(WebElement element, String value) {
 		jse.executeScript(
 				"arguments[0].value = arguments[1];" +
 				"arguments[0].dispatchEvent(new Event('input'));" +
@@ -151,7 +156,7 @@ public class ProductsPage {
 		);
 	}
 	
-	private void jsClick(WebElement element) {
+	public void jsClick(WebElement element) {
 		jse.executeScript("arguments[0].click();", element);
 	}
 	
@@ -339,4 +344,15 @@ public class ProductsPage {
         cancelProductBtn.click();
         waitPP.until(ExpectedConditions.invisibilityOf(addItemsFormPopup));
     }
+	
+	// Edit Item functionality
+	// *Testing using product ID as the system can allow duplicate barcodes.
+	//1. find edit button by product ID
+	public void clickEditByProductID(String productID) {
+		WebElement editBtn = driverPP.findElement(By.xpath("//button[contains(@onclick,'\"product_id\":\"" + productID + "\"')]"));
+		jsClick(editBtn);
+		waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
+	}
+	
+
 }

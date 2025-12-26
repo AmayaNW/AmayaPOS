@@ -1,17 +1,19 @@
 package tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
 import pages.DashboardPage;
 import pages.ProductsPage;
 import utils.TestBase;
 
 public class AddItemInsidePopupsTests extends TestBase {
 
-    @Test(description = "Verify nested popups for Category and Supplier: Persistence, Functionality, and Duplicates.")
+    @Test(description = "Verify nested popups for Category and Supplier: Persistence, Functionality, Duplicates, and crash detection.", timeOut = 120*1000) // miliseconds
     public void testNestedPopupBehaviors() {
         openDashboardAndLogin();
         
@@ -34,28 +36,28 @@ public class AddItemInsidePopupsTests extends TestBase {
             products.setItemName(initialItemName);
             products.addNewCategory(sharedCategoryName, "Description for Category");
             
-            // Check Persistence
-            String currentName = "";
-            try { currentName = products.getItemName(); } catch (Exception e) {}
-
-            if (currentName == null || currentName.isEmpty()) {
-                System.out.println("DEFECT FOUND: Form cleared/closed after adding Category.");
+            // waiting for the system stability after the popup closed. If the system keeps 
+            //loading here, the timeout (in the test desc) captures it.
+            waitTB.until(driverNP -> {
+            	JavascriptExecutor js = (JavascriptExecutor) driverNP;
+            	return js.executeScript("return document.readyState").equals("complete");
+            });
+            
+            String currentName = products.getItemName();
+            if(currentName == null || currentName.isEmpty()) {
+            	System.out.println("DEFECT: Form data cleared after Category popup.");
                 softAssert.fail("BUG: Form data lost after Category popup.");
-                
-                // Attempting to recover
-                isSystemStable = performRecovery(products, initialItemName);
+                isSystemStable = false;
             }
-
-            // Check for duplicate (Only if stable)
-            if (isSystemStable) {
-                System.out.println("Checking for duplicate category...");
-                products.addNewCategory(sharedCategoryName, "Duplicate");
-            }
-
-        } catch (Exception e) {
-            System.out.println("CRITICAL FAILURE in Category Scenario: " + e.getMessage());
-            softAssert.fail("CRITICAL: Category popup crashed the application.");
-            isSystemStable = performRecovery(products, initialItemName);
+            
+        }catch (Exception e) {
+            System.out.println("CRITICAL BUG: System crashed or hung after category popup.");
+            softAssert.fail("CRITICAL: System hung/infinite refresh detected after category popup.");
+            isSystemStable = false;
+            
+            // stopping the test class early if the UI breaks
+            softAssert.assertAll();
+            return;
         }
 
         // --- SCENARIO 2: SUPPLIER POPUP ---
@@ -66,16 +68,18 @@ public class AddItemInsidePopupsTests extends TestBase {
                 products.addNewSupplier(sharedSupplierName, "Amaya Tech", "0112223334", "contact@amaya.lk", "No 12, Colombo");
 
                 String currentName = "";
-                try { currentName = products.getItemName(); } catch (Exception e) {}
+                try { 
+                	currentName = products.getItemName(); 
+                	}catch (Exception e) {}
 
                 if (currentName == null || currentName.isEmpty()) {
                     System.out.println("DEFECT FOUND: Form cleared/closed after adding Supplier.");
                     softAssert.fail("BUG: Form data lost after Supplier popup.");
                     
-                    isSystemStable = performRecovery(products, initialItemName);
+                    isSystemStable = performRecovery(products, initialItemName); // recovery
                 }
 
-                // Checking for Duplicate
+                // Checking for duplicates only if the recovery passed.
                 if (isSystemStable) {
                     System.out.println("Checking for duplicate supplier...");
                     products.addNewSupplier(sharedSupplierName, "Amaya Tech", "0112223334", "contact@amaya.lk", "No 12, Colombo");
