@@ -135,6 +135,7 @@ public class ProductsPage {
 	@FindBy(xpath = "//button[normalize-space()='Edit']")
 	WebElement editBtn;
 	
+	private By deleteBtnBy = By.xpath(".//a[contains(@class,'btn-danger') and contains(.,'Delete')]");
 	
 	
 	 
@@ -352,6 +353,39 @@ public class ProductsPage {
 		WebElement editBtn = driverPP.findElement(By.xpath("//button[contains(@onclick,'\"product_id\":\"" + productID + "\"')]"));
 		jsClick(editBtn);
 		waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
+	}
+	
+	public void clickDeleteByBarcode(String barcode) {
+		for(WebElement pTableRow: pTableRows) {
+			if(pTableRow.getText().contains(barcode)) {
+				WebElement itemDeleteBtn = pTableRow.findElement(deleteBtnBy);
+				jse.executeScript("arguments[0].scrollIntoView({block:'center'});", itemDeleteBtn);
+				jsClick(itemDeleteBtn);
+				
+				return;
+			}
+		}
+		throw new RuntimeException("Delete button not found for barcode: " + barcode);
+	}
+	
+	public void confirmDelete() {
+		waitPP.until(ExpectedConditions.alertIsPresent());
+		driverPP.switchTo().alert().accept();
+	}
+	
+	public void cancelDelete() {
+		waitPP.until(ExpectedConditions.alertIsPresent());
+		driverPP.switchTo().alert().dismiss();
+	}
+	
+	public boolean isProductPresent(String barcode) {
+		for(WebElement pTableRow: pTableRows) {
+			if(pTableRow.getText().contains(barcode)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 

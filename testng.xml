@@ -18,8 +18,14 @@
             <!-- New category and suppliers adding tests -->
             <class name="tests.AddItemInsidePopupsTests"/>
             
-            <!-- Edit Item tests-->
+            <!-- Edit Item tests -->
             <class name="tests.EditItemsTest" />
+            
+            <!-- Delete Item tests -->
+            <class name="tests.DeleteItemsTests"/>
+            
+            <!-- Cancel Delete Item tests -->
+            <class name="tsts.CancelDeleteTests" />
         </classes>
     </test>
 
