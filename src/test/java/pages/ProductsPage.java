@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductsPage {
@@ -349,6 +348,16 @@ public class ProductsPage {
 	// Edit Item functionality
 	// *Testing using product ID as the system can allow duplicate barcodes.
 	//1. find edit button by product ID
+	public void waitForEditModalReady() {
+	    waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
+
+	    waitPP.until(driver ->!itemNameInput.getAttribute("value").isEmpty()
+	    );
+
+	    waitPP.until(ExpectedConditions.elementToBeClickable(categoryDropDown));
+	    waitPP.until(ExpectedConditions.elementToBeClickable(addNewSupplierBtn));
+	}
+
 	public void clickEditByProductID(String productID) {
 		WebElement editBtn = driverPP.findElement(By.xpath("//button[contains(@onclick,'\"product_id\":\"" + productID + "\"')]"));
 		jsClick(editBtn);

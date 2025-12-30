@@ -39,6 +39,10 @@ public class EditItemsTest extends TestBase{
             softAssert.fail("Edit popup failed to open: " + e.getMessage());
         }
 		
+		//---wait until the edit modal ready.---
+		products.waitForEditModalReady();
+
+		
 		//---Verify that the previously added data are preserved.---
 		String currentName = products.getItemName();
 		if(currentName == null || currentName.isEmpty()) {
@@ -116,4 +120,100 @@ public class EditItemsTest extends TestBase{
         softAssert.assertAll();
 		
 	}
+	
+	@Test(description = "Verify user can update product category successfully")
+	public void testEditProductCategory() {
+
+	    openDashboardAndLogin();
+
+	    DashboardPage dash = new DashboardPage(driverTB);
+	    dash.clickProducts();
+
+	    ProductsPage products = new ProductsPage(driverTB);
+	    Assert.assertTrue(products.isItemMgtHeadDisplayed());
+
+	    String productID = "26";
+	    String newCategory = "Updated Category " + System.currentTimeMillis();
+
+	    products.clickEditByProductID(productID);
+	    products.addNewCategory(newCategory, "Updated via edit test");
+	    products.selectCategory(newCategory);
+	    products.jsClick(products.saveProductBtn);
+
+	    Assert.assertTrue(products.isProductPresent("DUP1766667095389"),"Product missing after category update");
+	}
+	
+	@Test(description = "Verify user can update product supplier successfully")
+	public void testEditProductSupplier() {
+
+	    openDashboardAndLogin();
+
+	    DashboardPage dash = new DashboardPage(driverTB);
+	    dash.clickProducts();
+
+	    ProductsPage products = new ProductsPage(driverTB);
+	    Assert.assertTrue(products.isItemMgtHeadDisplayed());
+
+	    String productID = "26";
+	    String newSupplier = "Updated Supplier " + System.currentTimeMillis();
+
+	    products.clickEditByProductID(productID);
+	    products.addNewSupplier(newSupplier, "Edit Corp", "0771234567",
+	            "edit@supplier.lk", "Colombo");
+	    products.selectSupplier(newSupplier);
+	    products.jsClick(products.saveProductBtn);
+
+	    Assert.assertTrue(products.isProductPresent("DUP1766667095389"),"Product missing after supplier update");
+	}
+
+	@Test(description = "Verify cancel edit does not save changes")
+	public void testEditCancelDoesNotSave() {
+
+	    openDashboardAndLogin();
+
+	    DashboardPage dash = new DashboardPage(driverTB);
+	    dash.clickProducts();
+
+	    ProductsPage products = new ProductsPage(driverTB);
+	    Assert.assertTrue(products.isItemMgtHeadDisplayed());
+
+	    String productID = "26";
+	    products.clickEditByProductID(productID);
+
+	    String originalName = products.getItemName();
+	    products.jsSetValue(products.itemNameInput, "SHOULD NOT SAVE");
+
+	    products.closeForm(); // Cancel
+
+	    Assert.assertFalse(
+	        products.isItemPresentInTable("SHOULD NOT SAVE", "DUP1766667095389"),"BUG: Edit data saved after cancel"
+	    );
+	}
+
+	@Test(description = "Verify edited data persists after page refresh")
+	public void testEditDataPersistsAfterRefresh() {
+
+	    openDashboardAndLogin();
+
+	    DashboardPage dash = new DashboardPage(driverTB);
+	    dash.clickProducts();
+
+	    ProductsPage products = new ProductsPage(driverTB);
+	    Assert.assertTrue(products.isItemMgtHeadDisplayed());
+
+	    String productID = "26";
+	    String updatedName = "Persistent Edit " + System.currentTimeMillis();
+
+	    products.clickEditByProductID(productID);
+	    products.jsSetValue(products.itemNameInput, updatedName);
+	    products.jsClick(products.saveProductBtn);
+
+	    driverTB.navigate().refresh();
+
+	    Assert.assertTrue(
+	        products.isItemPresentInTable(updatedName, "DUP1766667095389"),"Edited data did not persist after refresh"
+	    );
+	}
+
+
 }
