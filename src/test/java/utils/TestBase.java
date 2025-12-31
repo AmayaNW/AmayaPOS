@@ -14,7 +14,7 @@ import pages.DashboardPage;
 import pages.LoginPage;
 
 public class TestBase {
-	protected WebDriver driverTB;
+	protected static WebDriver driverTB;
 	//protected WebDriverWait waitTB = new WebDriverWait(driverTB, Duration.ofSeconds(8)); Wrong: Gives null pointer exception
 	protected WebDriverWait waitTB;
 	
@@ -61,5 +61,9 @@ public class TestBase {
 		if (driverTB != null) {
 			driverTB.quit();
 		}
+	}
+
+	public static WebDriver getDriver() {
+		return driverTB;
 	}
 }

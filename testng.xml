@@ -3,6 +3,10 @@
 
 <suite name="Inventory Management Automation Suite" verbose="1">
 
+	<listeners>
+		<listener class-name="listeners.TestListener" />
+	</listeners>
+
     <!-- Global timeout for all tests to prevent infinite hangs -->
     <test name="Full Regression Test" preserve-order="true">
         <classes>
@@ -22,10 +26,10 @@
             <class name="tests.EditItemsTest" />
             
             <!-- Delete Item tests -->
-            <class name="tests.DeleteItemsTests"/>
+            <class name="tests.DeleteItemTests"/>
             
             <!-- Cancel Delete Item tests -->
-            <class name="tsts.CancelDeleteTests" />
+            <class name="tests.CancelDeleteTests" />
         </classes>
     </test>
 

@@ -4,6 +4,10 @@ target/
 build/
 temp-testng.xml
 
+# Ignore screenshots folder contents, but keep .gitkeep
+Screenshots/*
+!Screenshots/.gitkeep
+
 # Ignore IDE specific files
 .settings/
 .project
