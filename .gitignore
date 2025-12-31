@@ -8,6 +8,9 @@ temp-testng.xml
 Screenshots/*
 !Screenshots/.gitkeep
 
+#Ignore excel file changes.
+TestResults/AmayaPOS_TestCases.xlsx
+
 # Ignore IDE specific files
 .settings/
 .project
