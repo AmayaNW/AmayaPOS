@@ -1,10 +1,17 @@
-# Amaya POS (Point-of-Sale) System Testing Framework
-This is a testing framework which built to automate the testing of a complete web-based pharmacy management system.
+# Amaya POS - Pharmacy Point-of-Sale System: UI Automation and QA Analysis
+## Project Overview
+This repository contains UI automation tests and QA analysis performed on a point-of-sale system. The goal of this project is to automate user flows, validate data integrity, UI state consistency, and business-critical calculations that often pass manual testing.
 
-## Features
-1. Page-Object-Model (POM): This framework is designed and developed on the POM to keep readability, maintainability, and scalability of test scripts.
-2. Asynchronous handeling: Have used WebDriverWait and ExpectedConditions at the times needed.
-3. Negative testing: Have handled edge cases. (Such as duplicate barcode prevention and madatory field validation)
+## Testing Scope
+1. UI Automation using,
+     Selenium WebDriver,
+     TestNG
+3. Page Object Model (POM)
+4. Failure listener with,
+     Screesnshot capture,
+     Automated .xlsx bug reporting
+5. Negative and edge-case testing
+6. Widget and table data validation
 
 ## Tech Stack
 1. Language: Java (Version: 21.0.8)
