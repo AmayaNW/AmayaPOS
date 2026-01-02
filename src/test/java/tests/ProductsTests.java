@@ -11,76 +11,111 @@ import utils.TestBase;
 public class ProductsTests extends TestBase {
 	@Test(description = "Verify navigation to Products page from dashboard.") 
 	public void testNavigateToProducts() {
-		// 1. login and go to dashboard
-		openDashboardAndLogin();
-		
-		// 2. click the products link
-		DashboardPage dash = new DashboardPage(driverTB);
-		dash.clickProducts();
-		
-		// 3. validate products page header
-		ProductsPage products = new ProductsPage(driverTB);
-        Assert.assertTrue(products. isItemMgtHeadDisplayed(), "Failed to navigate to Products page or Header not found!");
+	        // 1. Login and open dashboard
+	        openDashboardAndLogin();
+
+	        // 2. Navigate to Products
+	        DashboardPage dash = new DashboardPage(driverTB);
+	        dash.clickProducts();
+
+	        // 3. Validate Products page loaded
+	        ProductsPage products = new ProductsPage(driverTB);
+	        Assert.assertTrue(products.isItemMgtHeadDisplayed(),"Failed to navigate to Products page or header not visible!");
+
+	        System.out.println("Successfully navigated to Products page at: " + getCurrentDateTime());
+
+	        String commonBarcode = "DUP" + System.currentTimeMillis();
+	        String imgPath = System.getProperty("user.dir") + "/test-data/images/Christmas desktop wallpaper.jpeg";
+
+	        // 4. Add first item
+	        products.fillAddItemsForm(
+	                "Original Item",
+	                commonBarcode,
+	                "Snacks",
+	                "prima (kothume)",
+	                120,
+	                180,
+	                20,
+	                3,
+	                2,
+	                "2026-12-28",
+	                imgPath
+	        );
+
+	        Assert.assertTrue(products.isItemPresentInTable("Original Item", commonBarcode), "Original item was not added!");
+
+	        // 5. Try adding duplicate item
+	        products.fillAddItemsForm(
+	                "Duplicate Item",
+	                commonBarcode,
+	                "Snacks",
+	                "prima (kothume)",
+	                120,
+	                180,
+	                20,
+	                3,
+	                2,
+	                "2026-12-28",
+	                imgPath
+	        );
+
+	        SoftAssert softAssert = new SoftAssert();
+
+	        boolean dupErrorDisplayed = products.isDuplicateBarcodeErrorDisplayed();
+	        boolean dupAdded = products.isItemPresentInTable("Duplicate Item", commonBarcode);
+
+	        if (dupAdded && !dupErrorDisplayed) {
+	            System.out.println("❌ BUG: System allows duplicate barcode products!");
+	        }
+
+	        softAssert.assertTrue(dupErrorDisplayed, "Duplicate barcode validation message NOT shown!");
+
+	        softAssert.assertAll();
+	    }
         
-        String commonBarcode = "DUP" + System.currentTimeMillis(); // to generate a unique barcode for this run.
-        
+	
+	@Test(description="Verify widgets update after adding item/s")
+	public void widgetUpdateAfterAddingAnItem() {
+		// 1. Login and open dashboard
+        openDashboardAndLogin();
+
+        // 2. Navigate to Products
+        DashboardPage dash = new DashboardPage(driverTB);
+        dash.clickProducts();
+
+        // 3. Validate Products page loaded
+        ProductsPage products = new ProductsPage(driverTB);
+        Assert.assertTrue(products.isItemMgtHeadDisplayed(),"Failed to navigate to Products page or header not visible!");
+
         System.out.println("Successfully navigated to Products page at: " + getCurrentDateTime());
         
-        // 4. validate Add Items button is clickable.
-      //  Assert.assertTrue(products.addItemsBtnClickability(), "Failed to click Add Items. Button is not clickable.");
+        // previous total items count.
+        int totalItemsPreviously = products.getTotalItemsCount();
         
-        String imgPath = System.getProperty("user.dir")+"/test-data/images/Christmas desktop wallpaper.jpeg";
+        String barcode = "WID"+System.currentTimeMillis();
+        String imgPath2 = System.getProperty("user.dir") + "/test-data/images/perfume.jpeg";
         
-        // 5. Add a new item. (1)
-        System.out.println("Adding first item from the barcode.");
+        //add new item
         products.fillAddItemsForm(
-        		"Original Item",
-        		commonBarcode,
-        		"Snacks",
-        		"prima (kothume)",
-        		120,
-        		180,
-        		20,
-        		3,
-        		2,
-        		"2025-12-28",
-        		imgPath
-        );
-        Assert.assertTrue(products.isItemPresentInTable("Original Item", commonBarcode), "First Item was not added.");
-        System.out.println("First item added successfully at " + getCurrentDateTime());
+        		"Widget Test Item", 
+        		barcode, 
+        		"Snacks", 
+        		"prima (kothume)", 
+        		100, 
+        		150, 
+        		10, 
+        		2, 
+        		1, 
+        		"2026-12-31",
+        		imgPath2);
         
-        // 6. Add a duplicate item with the same barcode.
-        System.out.println("Adding a duplicate item with the same barcode.");
-        products.fillAddItemsForm(
-                "Duplicate Item",
-                commonBarcode,
-                "Snacks",
-                "prima (kothume)", 
-                120,
-                180,
-                20,
-                3,
-                2, 
-                "2025-12-28",
-                imgPath);
+        Assert.assertTrue(products.isWidgetItemPresentInTable(barcode), "BUG: Widget item not added.");
         
-        // 7. checking for duplicate barcode validation. (used softAssert)
-        SoftAssert softAssert = new SoftAssert();
-        boolean dupErrorDisplayed = products.isDuplicateBarcodeErrorDisplayed();
-        boolean dupAdded = products.isItemPresentInTable("Duplicate Item", commonBarcode);
+        //after(new) total item count
+        int totalItemsNew = products.getTotalItemsCount();
         
-        if (dupAdded && !dupErrorDisplayed) {
-            System.out.println("BUG FOUND: System allows adding products with duplicate barcode!");
-        } else {
-            softAssert.assertTrue(dupErrorDisplayed, "Expected duplicate barcode validation message not displayed.");
-        }
-
-        softAssert.assertAll();
-        
-        // Cleanup: Close form so next tests aren't blocked
-      //  products.closeForm();
-        
-        
+        Assert.assertTrue(totalItemsNew > totalItemsPreviously, "BUG: Total Items widget's total item count did not update after adding a new item.");
+        	
 	}
 	
 }

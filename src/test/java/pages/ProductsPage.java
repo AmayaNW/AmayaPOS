@@ -136,6 +136,24 @@ public class ProductsPage {
 	
 	private By deleteBtnBy = By.xpath(".//a[contains(@class,'btn-danger') and contains(.,'Delete')]");
 	
+	@FindBy(xpath = "//h6[text()='Total Items']/following-sibling::h3")
+	public WebElement totalItemsValue;
+	
+	@FindBy(xpath = "//h6[text()='Total items in Stock']/following-sibling::h3")
+	public WebElement totalItemsInStock;
+	
+	@FindBy(xpath = "//h6[text()='Inventory Value']/following-sibling::h3")
+	public WebElement inventoryValue;
+	
+	@FindBy(xpath = "//h6[text()='Potential Profit']/following-sibling::h3")
+	public WebElement potentialProfit;
+	
+	@FindBy(xpath = "//input[@placeholder='Search items, categories, barcodes, or suppliers...']")
+	public WebElement searchInput;
+	
+	@FindBy(xpath = "//button[normalize-space()='Search']")
+	public WebElement searchButton;
+	
 	
 	 
 	public ProductsPage(WebDriver driverTB) {
@@ -195,6 +213,8 @@ public class ProductsPage {
 		}
 	}
 	
+	//-------------------------------------CATEGORY TESTS--------------------------------------------------------
+	
 	
 	// Add new category TO the list
 	public void addNewCategory(String name, String desc) {
@@ -228,6 +248,8 @@ public class ProductsPage {
 		        expCat
 		    );
 	}
+	
+	//------------------------------------SUPPLIER TESTS----------------------------------------------
 	
 	
 	// Add new supplier.
@@ -265,6 +287,8 @@ public class ProductsPage {
 		    );	
 	}
 	
+	//------------------------------------UPLOAD IMAGE--------------------------------------------
+	
 	public void uploadImage(String imgPath) {
 		try {
 			((JavascriptExecutor) driverPP)
@@ -276,6 +300,8 @@ public class ProductsPage {
 			System.out.println("Optional image upload is skipped or failed. Verify path: " + imgPath);
 		}
 	}
+	
+	//------------------------------------------ADD ITEM----------------------------------------------
 	
 	public boolean fillAddItemsForm(String itemName, String custBarcode, String cat, String sup, int costPrice, 
 			int sellPrice, int stock, int tax, int minOrQty, String expDate, String imgPath) {
@@ -345,7 +371,7 @@ public class ProductsPage {
         waitPP.until(ExpectedConditions.invisibilityOf(addItemsFormPopup));
     }
 	
-	// Edit Item functionality
+	//----------------------------------------EDIT ITEM---------------------------------------------
 	// *Testing using product ID as the system can allow duplicate barcodes.
 	//1. find edit button by product ID
 	public void waitForEditModalReady() {
@@ -363,6 +389,8 @@ public class ProductsPage {
 		jsClick(editBtn);
 		waitPP.until(ExpectedConditions.visibilityOf(addItemsFormPopup));
 	}
+	
+	//--------------------------------DELETE ITEM--------------------------------------------
 	
 	public void clickDeleteByBarcode(String barcode) {
 		for(WebElement pTableRow: pTableRows) {
@@ -397,5 +425,57 @@ public class ProductsPage {
 		return false;
 	}
 	
+	//--------------------------------------WIDGET TESTS--------------------------------------------
+	
+	public int getTotalItemsCount() {
+		return Integer.parseInt(totalItemsValue.getText());
+	}
+	
+	public int getTotalItemsCountInStock() {
+		return Integer.parseInt(totalItemsInStock.getText());
+	}
+	
+	//for currency values
+	private double parseCurrency(String value) {
+	    if (value == null || value.isBlank()) {
+	        throw new IllegalArgumentException("Currency value is empty");
+	    }
+
+	    return Double.parseDouble(
+	            value.replaceAll("[^0-9.]", "")
+	    );
+	}
+	
+	public double getInventoryValue() {
+		return parseCurrency(inventoryValue.getText());
+	}
+	
+	public double getPotentialProfit() {
+		return parseCurrency(potentialProfit.getText());
+	}
+	
+	//---------------------------------TABLE HELPERS-------------------------------------------
+	
+	public boolean isWidgetItemPresentInTable(String barcode) {
+		for(WebElement pTableRow : pTableRows) {
+			if(pTableRow.getText().contains(barcode)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getVisibleRowCount() {
+		int visibleRowCount = pTableRows.size();
+		return visibleRowCount;
+	}
+	
+	
+	//-----------------------------------SEARCH----------------------------------------
+	
+	public void searchProduct(String searchKeyword) {
+		searchInput.clear();
+		searchInput.sendKeys(searchKeyword);
+	}
 
 }

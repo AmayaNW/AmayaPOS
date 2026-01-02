@@ -19,7 +19,7 @@ public class DeleteItemTests extends TestBase {
         ProductsPage products = new ProductsPage(driverTB);
         Assert.assertTrue(products.isItemMgtHeadDisplayed(), "Not on Products page!");
         
-        String barcode = "461972603069"; //existing barcode
+        String barcode = "439996211280"; //existing barcode
         
         Assert.assertTrue(products.isProductPresent(barcode), "Precondition failed: Product not found before delete");
         
