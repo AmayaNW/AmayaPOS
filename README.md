@@ -102,3 +102,7 @@ These issues are environment-independent and must be addressed to ensure system 
 ~Excel-based automation bug report generated per run
 (Artifacts are excluded from version control via .gitignore.)
 ```
+
+## Artifacts
+[Test Cases and Automation Bug Report](https://docs.google.com/spreadsheets/d/1jWUtwWyuhQ5r6D6dnKXt8P-mnz368UGUjkZkLXo0P6A/edit?gid=0#gid=0)
+
