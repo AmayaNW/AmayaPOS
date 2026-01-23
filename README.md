@@ -1,4 +1,4 @@
-# Amaya POS - Pharmacy Point-of-Sale System: UI Automation and QA Analysis
+# LankaPOS - Pharmacy Point-of-Sale System: UI Automation and QA Analysis
 ## Project Overview
 This repository contains UI automation tests and QA analysis performed on a point-of-sale system. The goal of this project is to automate user flows, validate data integrity, UI state consistency, and business-critical calculations that often pass manual testing.
 
